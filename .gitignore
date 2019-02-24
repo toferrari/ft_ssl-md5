@@ -1,0 +1,4 @@
+*.o
+ft_sll
+.git
+.DS_Store
