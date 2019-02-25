@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/11 15:50:45 by tferrari          #+#    #+#             */
-/*   Updated: 2017/03/11 13:20:44 by tferrari         ###   ########.fr       */
+/*   Updated: 2019/02/25 11:05:44 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "get_next_line.h"
 #include "libft.h"
 
-int		ft_realloc(char **rest)
+int		ft_realloc_gnl(char **rest)
 {
 	char		*tmp;
 
@@ -80,7 +80,7 @@ int		get_next_line(const int fd, char **line)
 	while ((ret = read(fd, buff, BUFF_SIZE)) > 0)
 	{
 		buff[ret] = '\0';
-		if (!(ft_realloc(&str)))
+		if (!(ft_realloc_gnl(&str)))
 			return (GNL_ERROR);
 		str = ft_strcat(str, buff);
 		if (ft_memchr(buff, '\n', BUFF_SIZE))

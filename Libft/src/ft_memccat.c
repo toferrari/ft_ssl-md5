@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_realloc.c                                       :+:      :+:    :+:   */
+/*   ft_memccat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/16 13:10:51 by tferrari          #+#    #+#             */
-/*   Updated: 2019/02/25 10:39:58 by tferrari         ###   ########.fr       */
+/*   Created: 2019/02/25 14:43:37 by tferrari          #+#    #+#             */
+/*   Updated: 2019/02/25 16:30:39 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+# include "libft.h"
 
-void	*ft_realloc(void *ptr, size_t size)
+void	*ft_memccat(void *dest, void *src, size_t start, size_t len)
 {
-	void *new_ptr;
+	size_t			i;
+	unsigned char	*cdest;
+	unsigned char	*csrc;
 
-	if (!ptr)
-		return (ft_memalloc(size));
-	if (!(new_ptr = ft_memalloc(size)))
-		return (NULL);
-	new_ptr = memcpy(new_ptr, ptr, size);
-	return (new_ptr);
+	i = 0;
+	cdest = (unsigned char *)dest;
+	csrc = (unsigned char *)src;
+	while (i < len)
+	{
+		cdest[start + i] = csrc[i];
+		i++;
+	}
+	return (cdest);
 }
