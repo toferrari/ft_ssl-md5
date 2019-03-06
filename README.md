@@ -1,1 +1,1 @@
-# ft_ssl-md5
+# ft_ssl-hash

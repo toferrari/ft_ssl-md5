@@ -1,25 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_realloc_md5.c                                   :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/25 16:27:52 by tferrari          #+#    #+#             */
-/*   Updated: 2019/03/01 14:57:32 by tferrari         ###   ########.fr       */
+/*   Created: 2019/02/28 18:41:55 by tferrari          #+#    #+#             */
+/*   Updated: 2019/02/28 18:42:12 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_ssl.h"
 
-void    *ft_realloc_md5(void *ptr, size_t size, size_t size_ptr)
+int	error(char *str)
 {
-	void *new_ptr;
-
-	if (!ptr)
-		return (ft_memalloc(size));
-	if (!(new_ptr = ft_memalloc(size)))
-		return (NULL);
-	new_ptr = ft_memcpy(new_ptr, ptr, size_ptr);
-	return (new_ptr);
+	ft_putstr(str);
+	return (0);
 }

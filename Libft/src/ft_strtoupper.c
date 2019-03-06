@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_realloc_md5.c                                   :+:      :+:    :+:   */
+/*   ft_strtoupper.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/25 16:27:52 by tferrari          #+#    #+#             */
-/*   Updated: 2019/03/01 14:57:32 by tferrari         ###   ########.fr       */
+/*   Created: 2019/03/05 10:24:43 by tferrari          #+#    #+#             */
+/*   Updated: 2019/03/05 10:27:39 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void    *ft_realloc_md5(void *ptr, size_t size, size_t size_ptr)
+char	*ft_strtoupper(char *str)
 {
-	void *new_ptr;
+	int i;
 
-	if (!ptr)
-		return (ft_memalloc(size));
-	if (!(new_ptr = ft_memalloc(size)))
-		return (NULL);
-	new_ptr = ft_memcpy(new_ptr, ptr, size_ptr);
-	return (new_ptr);
+	i = 0;
+	while (str[i])
+	{
+		str[i] = ft_toupper(str[i]);
+		i++;
+	}
+	return (str);
 }

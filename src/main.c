@@ -6,40 +6,88 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 13:59:57 by tferrari          #+#    #+#             */
-/*   Updated: 2019/02/28 18:49:41 by tferrari         ###   ########.fr       */
+/*   Updated: 2019/03/06 15:49:13 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 
-void	check_bonus(t_option *option)
-{
+extern t_algo			g_tab[];
 
+t_hash	check_hash(char *algo, t_hash hash)
+{
+	int				i;
+
+	i = 0;
+	while (g_tab[i].algo)
+	{
+		if (!ft_strcmp(algo, g_tab[i].algo))
+		{
+			hash.index_algo = i;
+			return (hash);
+		}
+		i++;
+	}
+	hash.index_algo = 0;
+	return (hash);
+}
+
+void	read_file(char *path, t_hash hash)
+{
+	t_read		parsing;
+
+	parsing.fd = open(path, O_RDONLY);
+	if (parsing.fd == -1)
+		error("md5: -s: No such file or directory");
+	while ((parsing.ret = read(parsing.fd, parsing.buf, BUFSIZE)) > 0)
+	{
+		hash.data_to_h = ft_realloc_md5(hash.data_to_h, hash.len_octet_h + parsing.ret, hash.len_octet_h);
+		hash.data_to_h = ft_memccat(hash.data_to_h, parsing.buf, hash.len_octet_h, parsing.ret);
+		hash.len_octet_h += parsing.ret;
+	}
+	g_tab[hash.index_algo].lst_hash_fonction(hash);
+	// ecriture
+}
+
+int		std_in(char *algo, t_hash hash)
+{
+	uint32_t	ret;
+	char		buf[BUFSIZE];
+
+	ft_bzero(&hash, sizeof(hash));
+	while ((ret = read(0, buf, BUFSIZE)) > 0)
+	{
+		hash.data_to_h = ft_realloc_md5(hash.data_to_h, hash.len_octet_h + ret, hash.len_octet_h);
+		hash.data_to_h = ft_memccat(hash.data_to_h, buf, hash.len_octet_h, ret);
+		hash.len_octet_h += ret;
+	}
+	g_tab[hash.index_algo].lst_hash_fonction(hash);
+	return(0);
+	//ecrire
 }
 
 int		main(int ac, char **av)
 {
-	t_option	*option;
-	t_md5		md5;
+	t_hash		hash;
+	int			index;
 
 	if (ac == 1)
-		return error(("usage: ft_gssl command [command opts] [command args]"));
-	else if (ac == 2)
-		check_hash(option, argv[1]);
-	else
-		check_bonus();
-	ft_bzero(&md5, sizeof(md5));
-	md5.fd = open(av[1], O_RDONLY);
-	if (md5.fd == -1)
-		error("error md5.fd");
-	while ((md5.ret = read(md5.fd, md5.buf, BUFSIZE)) > 0)
+		return error(("usage: ft_ssl command [command opts] [command args]"));
+	ft_bzero(&hash, sizeof(hash));
+	hash = check_hash(av[1], hash);
+	if (hash.index_algo == -1)
+		return (error("wrong hasher"));
+	if (ac == 9)
+		return (std_in(av[ac - 1], hash));
+	index = 2;
+	while (hash.option.close != 1)
 	{
-		md5.data_to_h = ft_realloc_md5(md5.data_to_h, md5.len_octet_h + md5.ret, md5.len_octet_h);
-		md5.data_to_h = ft_memccat(md5.data_to_h, md5.buf, md5.len_octet_h, md5.ret);
-		md5.len_octet_h += md5.ret;
+		hash = check_option(av[index], hash, &index);
 	}
-	md5.len_bytes_h = md5.len_octet_h * 8;
-	// printf("%d\n", md5.len_octet_h);
-	ft_md5(md5);
+	while (index < ac)
+	{
+		read_file(av[index], hash);
+		index++;
+	}
 	return (0);
 }

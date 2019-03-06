@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 13:50:32 by tferrari          #+#    #+#             */
-/*   Updated: 2019/02/26 18:20:33 by tferrari         ###   ########.fr       */
+/*   Updated: 2019/03/06 17:02:10 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,19 @@
 # include "get_next_line.h"
 # include <fcntl.h>
 # include <math.h>
+# include <stdio.h>
 
 # define BUFSIZE 500
+# define L_ROT(X, C) ((X << C) | (X >> (32 - C)))
+# define xstr(s) str(s)
+# define str(s) #s
+
+typedef struct		s_read
+{
+	int				fd;
+	int				ret;
+	char			buf[BUFSIZE];
+}					t_read;
 
 typedef struct		s_option
 {
@@ -27,24 +38,38 @@ typedef struct		s_option
 	int				option_q;
 	int				option_r;
 	int				option_s;
+	int				close;
 }					t_option;
 
-typedef struct		s_md5
+typedef struct		s_hash
 {
-	int				fd;
-	int				ret;
-	char			buf[BUFSIZE];
+	int				index_algo;
 	void			*data_to_h;
 	size_t			len_octet_h;
-	size_t			nb_block;
+	size_t			len_bytes_h;
 	uint32_t		h_init[4];
 	uint32_t		h_update[4];
-	uint32_t		*r;
-	uint32_t		*k;
-	uint32_t		f;
-	uint32_t		g;
-}					t_md5;
+	t_option		option;
 
-void				ft_md5(t_md5 md5);
+}					t_hash;
+
+typedef struct		s_algo
+{
+	char			*algo;
+	void			(*lst_hash_fonction)(t_hash);
+}					t_algo;
+
+void				md5(t_hash md5);
+void				sha256(t_hash hash);
+int					error(char *str);
+t_hash				check_option(char *str, t_hash hash, int *index);
+void				write_hash(t_hash hash);
+char				*inttochar(uint32_t i);
+
+static t_algo	g_tab[] = {
+	{"md5", md5},
+	{"sha256", sha256},
+	{NULL, NULL}
+};
 
 #endif

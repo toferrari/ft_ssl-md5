@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 19:37:12 by tferrari          #+#    #+#             */
-/*   Updated: 2019/02/25 16:29:31 by tferrari         ###   ########.fr       */
+/*   Updated: 2019/03/05 10:27:35 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ int				ft_wstr_len(wchar_t *str);
 int				*ft_intmal(int len);
 void			ft_swap(int *b, int *a);
 void			*ft_memccat(void *dest, void *src, size_t start, size_t len);
-void   			 *ft_realloc_md5(void *ptr, size_t size, size_t size_ptr);
+void   			*ft_realloc_md5(void *ptr, size_t size, size_t size_ptr);
+char			*ft_strtoupper(char *str);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/12 18:19:54 by tferrari          #+#    #+#              #
-#    Updated: 2019/02/25 16:30:19 by tferrari         ###   ########.fr        #
+#    Updated: 2019/03/05 10:27:14 by tferrari         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ SRC_FILE =	ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c \
 			ft_parse_flag.c ft_flag_llhexa.c ft_flag_c_null.c ft_flag_chr.c \
 			ft_flag_wchr.c ft_flag_wstr.c ft_flag_hhd.c ft_flag_llo.c \
 			ft_flag_p.c ft_printf.c ft_flag_b.c ft_realloc.c ft_realloc_md5.c \
-			ft_memccat.c
+			ft_memccat.c ft_strtoupper.c
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILE))
 
