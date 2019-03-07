@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/24 16:08:06 by tferrari          #+#    #+#             */
-/*   Updated: 2019/03/06 18:58:15 by tferrari         ###   ########.fr       */
+/*   Updated: 2019/03/07 18:43:50 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static uint32_t g_k[64] = { 0xd76aa478, 0xe8c7b756, 0x242070db, 0xc1bdceee,
 	0x655b59c3, 0x8f0ccc92, 0xffeff47d, 0x85845dd1, 0x6fa87e4f, 0xfe2ce6e0,
 	0xa3014314, 0x4e0811a1, 0xf7537e82, 0xbd3af235, 0x2ad7d2bb, 0xeb86d391};
 
-t_hash	init_variable_h(t_hash hash)
+t_hash	init_variable_h_md5(t_hash hash)
 {
 	hash.h_init[0] = 0x67452301;
 	hash.h_init[1] = 0xEFCDAB89;
@@ -84,52 +84,46 @@ t_hash	calculate_h(t_hash hash, uint32_t *w)
 		hash.h_update[1] = hash.h_update[1] + L_ROT(f, g_r[i]);
 		i++;
 	}
-	hash.h_init[0] += hash.h_update[0];
-	hash.h_init[1] += hash.h_update[1];
-	hash.h_init[2] += hash.h_update[2];
-	hash.h_init[3] += hash.h_update[3];
+	hash = update_h(hash, 4);
 	return (hash);
 }
 
 t_hash	create_padding(t_hash hash)
 {
 	size_t		mod_h;
+	uint32_t	size_hash;
 
-	mod_h = 64 - (hash.len_octet_h % 64);
-	printf("%zu\n",mod_h);
-	// if (mod_h < )
+	mod_h = hash.len_octet_h % 64;
+	size_hash = hash.len_octet_h * 8;
+	if (mod_h <= 56)
+		hash.data_to_h = ft_realloc_md5(hash.data_to_h,
+								hash.len_octet_h - mod_h + 64, hash.len_octet_h);
+	else
+		hash.data_to_h = ft_realloc_md5(hash.data_to_h,
+								hash.len_octet_h - mod_h + 128, hash.len_octet_h);
+	((char *)hash.data_to_h)[hash.len_octet_h] = 0x80;
+	hash.len_octet_h += (mod_h <= 56) ? (64 - mod_h) : (128 - mod_h);
+	hash.data_to_h = ft_memccat(hash.data_to_h, (void *)&size_hash,
+													(hash.len_octet_h-8), 4);
 	return (hash);
 }
 
 void	md5(t_hash hash)
 {
-	size_t		mod_h;
-	size_t		bytes_allocate;
 	void		*ptr_save;
-	uint32_t	*test;
+	uint32_t	*hashing;
 
-	mod_h = hash.len_octet_h % 64;
-	uint32_t aa = hash.len_octet_h;
 	hash = create_padding(hash);
-	hash = init_variable_h(hash);
-	hash.data_to_h = ft_realloc_md5(hash.data_to_h,
-								hash.len_octet_h - mod_h + 64, hash.len_octet_h);
-	((char *)hash.data_to_h)[hash.len_octet_h] = 0x80;
-	hash.len_octet_h += (64 - mod_h);
-	char *b = inttochar(aa);
-	ft_printf("i = %x\n", b);
-	// hash.data_to_h = ft_memccat(hash.data_to_h, aa, hash.len_octet_h - 8, 4);
-	((char *)hash.data_to_h)[hash.len_octet_h - 8] = (aa)*8;
-	write(1, hash.data_to_h, hash.len_octet_h);
-	write(1, "\n", 1);
-	test = (uint32_t*)hash.data_to_h;
+	hash = init_variable_h_md5(hash);
+	hashing = (uint32_t*)hash.data_to_h;
 	ptr_save = hash.data_to_h;
 	while (0 < hash.len_octet_h)
 	{
 		ft_memcpy(hash.h_update, hash.h_init, sizeof(hash.h_init));
-		hash = calculate_h(hash, test);
+		hash = calculate_h(hash, hashing);
 		hash.len_octet_h -= 64;
-		test = test + 16;
+		hashing = hashing + 16;
 	}
+	ft_memdel((void **)&ptr_save);
 	write_hash(hash);
 }
