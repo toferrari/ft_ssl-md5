@@ -6,13 +6,13 @@
 /*   By: dbischof <dbischof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 15:17:38 by dbischof          #+#    #+#             */
-/*   Updated: 2019/03/06 17:02:23 by tferrari         ###   ########.fr       */
+/*   Updated: 2019/03/07 18:51:24 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 
-char	*inttochar(uint32_t i)
+void	*inttochar(uint32_t *i)
 {
 	int j;
 	int tmp;
@@ -22,11 +22,11 @@ char	*inttochar(uint32_t i)
 	while (++j < 4)
 	{
 		tmp = tmp << 8;
-		tmp |= (0xff & i);
-		i = i >> 8;
+		tmp |= (0xff & *i);
+		*i = *i >> 8;
 	}
-	i = tmp;
-	return ((char*)i);
+	*i = tmp;
+	return ((char *)i);
 }
 
 int		chartoint(unsigned char *t, int len)
