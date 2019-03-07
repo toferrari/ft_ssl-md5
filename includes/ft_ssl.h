@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 13:50:32 by tferrari          #+#    #+#             */
-/*   Updated: 2019/03/06 17:02:10 by tferrari         ###   ########.fr       */
+/*   Updated: 2019/03/07 18:41:43 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ typedef struct		s_hash
 	void			*data_to_h;
 	size_t			len_octet_h;
 	size_t			len_bytes_h;
-	uint32_t		h_init[4];
-	uint32_t		h_update[4];
+	uint32_t		h_init[8];
+	uint32_t		h_update[8];
 	t_option		option;
 
 }					t_hash;
@@ -64,7 +64,8 @@ void				sha256(t_hash hash);
 int					error(char *str);
 t_hash				check_option(char *str, t_hash hash, int *index);
 void				write_hash(t_hash hash);
-char				*inttochar(uint32_t i);
+void				*inttochar(uint32_t *i);
+t_hash				update_h(t_hash hash, size_t len);
 
 static t_algo	g_tab[] = {
 	{"md5", md5},
