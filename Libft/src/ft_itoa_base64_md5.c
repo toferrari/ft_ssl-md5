@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memccat.c                                       :+:      :+:    :+:   */
+/*   ft_itoa_base64_md5.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/25 14:43:37 by tferrari          #+#    #+#             */
-/*   Updated: 2019/03/07 14:12:08 by tferrari         ###   ########.fr       */
+/*   Created: 2016/11/02 19:37:12 by tferrari          #+#    #+#             */
+/*   Updated: 2019/03/07 13:41:58 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "ft_printf.h"
 
-void	*ft_memccat(void *dest, void *src, size_t start, size_t len)
+#define MODULO(x) (x <= 9) ? (x + '0') : (x - 10 + 'a');
+
+char	*ft_itoa_base64_md5(uint64_t nb, int base)
 {
-	size_t			i;
-	unsigned char	*cdest;
-	unsigned char	*csrc;
+	int				len;
+	char			*s;
 
-	i = 0;
-	cdest = (unsigned char *)dest;
-	csrc = (unsigned char *)src;
-	while (i < len)
+	len = 8;
+	if (!(s = ft_strnew(len)))
+		return (NULL);
+	while (0 < len)
 	{
-		cdest[start + i] = csrc[i];
-		i++;
+		s[len - 1] = MODULO(nb % base);
+		nb = nb / base;
+		len--;
 	}
-	return (cdest);
+	return (s);
 }
