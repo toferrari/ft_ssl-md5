@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/24 16:08:06 by tferrari          #+#    #+#             */
-/*   Updated: 2019/03/07 18:43:50 by tferrari         ###   ########.fr       */
+/*   Updated: 2019/03/08 10:52:17 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ t_hash	compute(t_hash hash, size_t i, uint32_t *f, uint32_t *g)
 	if (i <= 15)
 	{
 		*f = (hash.h_update[1] & hash.h_update[2]) |
-										((~hash.h_update[1]) & hash.h_update[3]);
+									((~hash.h_update[1]) & hash.h_update[3]);
 		*g = i;
 	}
 	else if (i <= 31)
 	{
 		*f = (hash.h_update[3] & hash.h_update[1]) |
-										((~hash.h_update[3]) & hash.h_update[2]);
+									((~hash.h_update[3]) & hash.h_update[2]);
 		*g = (5 * i + 1) % 16;
 	}
 	else if (i <= 47)
@@ -88,7 +88,7 @@ t_hash	calculate_h(t_hash hash, uint32_t *w)
 	return (hash);
 }
 
-t_hash	create_padding(t_hash hash)
+t_hash	create_padding_md5(t_hash hash)
 {
 	size_t		mod_h;
 	uint32_t	size_hash;
@@ -97,14 +97,14 @@ t_hash	create_padding(t_hash hash)
 	size_hash = hash.len_octet_h * 8;
 	if (mod_h <= 56)
 		hash.data_to_h = ft_realloc_md5(hash.data_to_h,
-								hash.len_octet_h - mod_h + 64, hash.len_octet_h);
+							hash.len_octet_h - mod_h + 64, hash.len_octet_h);
 	else
 		hash.data_to_h = ft_realloc_md5(hash.data_to_h,
-								hash.len_octet_h - mod_h + 128, hash.len_octet_h);
+							hash.len_octet_h - mod_h + 128, hash.len_octet_h);
 	((char *)hash.data_to_h)[hash.len_octet_h] = 0x80;
 	hash.len_octet_h += (mod_h <= 56) ? (64 - mod_h) : (128 - mod_h);
 	hash.data_to_h = ft_memccat(hash.data_to_h, (void *)&size_hash,
-													(hash.len_octet_h-8), 4);
+													(hash.len_octet_h - 8), 4);
 	return (hash);
 }
 
@@ -113,7 +113,7 @@ void	md5(t_hash hash)
 	void		*ptr_save;
 	uint32_t	*hashing;
 
-	hash = create_padding(hash);
+	hash = create_padding_md5(hash);
 	hash = init_variable_h_md5(hash);
 	hashing = (uint32_t*)hash.data_to_h;
 	ptr_save = hash.data_to_h;
