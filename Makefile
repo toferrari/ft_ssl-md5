@@ -6,7 +6,7 @@
 #    By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/13 16:44:11 by tferrari          #+#    #+#              #
-#    Updated: 2019/03/07 18:42:18 by tferrari         ###   ########.fr        #
+#    Updated: 2019/03/13 18:44:41 by tferrari         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ NAME = ft_ssl
 SRC_DIR = src
 
 SRC_FILE =	main.c md5.c error.c sha256.c option.c write.c intchar.c \
-			update_h.c
+			update_h.c intchar_64.c
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILE))
 
@@ -32,7 +32,7 @@ LFT = -L./Libft -lft
 all : libft $(NAME)
 
 $(NAME): $(OBJS)
-	@gcc $(LFT) -o $(NAME) $(OBJS)
+	@gcc $(LFT) -o $(NAME) $(OBJS) -fsanitize=address
 	@echo "\033[32mexecutable ft_ssl créé\033[0m"
 
 libft:
@@ -40,7 +40,7 @@ libft:
 
 $(OBJS_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(OBJS_DIR)
-	@gcc $(INC) -o $@ -c $<
+	@gcc $(INC) -o $@ -c $< -fsanitize=address -g
 	@echo "Fichier" $< "recompilé."
 
 clean:
