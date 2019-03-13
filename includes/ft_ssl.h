@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 13:50:32 by tferrari          #+#    #+#             */
-/*   Updated: 2019/03/07 18:41:43 by tferrari         ###   ########.fr       */
+/*   Updated: 2019/03/08 17:21:12 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,11 @@
 # include <math.h>
 # include <stdio.h>
 
-# define BUFSIZE 500
+# define BUFSIZE 1024
 # define L_ROT(X, C) ((X << C) | (X >> (32 - C)))
+# define R_ROT(X, C) ((X >> C) | (X << (32 - C)))
+# define L_SFT(X, C) (X << C)
+# define R_SFT(X, C) (X >> C)
 # define xstr(s) str(s)
 # define str(s) #s
 
@@ -65,6 +68,7 @@ int					error(char *str);
 t_hash				check_option(char *str, t_hash hash, int *index);
 void				write_hash(t_hash hash);
 void				*inttochar(uint32_t *i);
+void				*inttochar_64(uint64_t *i);
 t_hash				update_h(t_hash hash, size_t len);
 
 static t_algo	g_tab[] = {
