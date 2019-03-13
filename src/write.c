@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 16:03:18 by tferrari          #+#    #+#             */
-/*   Updated: 2019/03/07 14:08:12 by tferrari         ###   ########.fr       */
+/*   Updated: 2019/03/13 18:19:12 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,17 @@
 void		write_hash(t_hash hash)
 {
 	int i = -1;
-	char *tmp;
-	while (++i < 4)
+	char *tmp ;
+	while (++i < 8)
 	{
-		inttochar(&hash.h_init[i]);
+		tmp = NULL;
+		// tmp = ft_itoa_base(inttochar(hash.h_init[i]), 16);
+		// inttochar(&hash.h_init[i]);
 		tmp = ft_itoa_base64_md5(hash.h_init[i], 16);
 		ft_printf("%s", tmp);
 		ft_memdel((void**)&tmp);
 	}
+	// printf("\n");
 	write(1, "\n", 1);
 	// char *test_p[16];
 	// char *tmp;
