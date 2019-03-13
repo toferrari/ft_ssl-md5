@@ -6,7 +6,7 @@
 /*   By: dbischof <dbischof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 15:17:38 by dbischof          #+#    #+#             */
-/*   Updated: 2019/03/07 18:51:24 by tferrari         ###   ########.fr       */
+/*   Updated: 2019/03/13 18:42:10 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	*inttochar(uint32_t *i)
 		*i = *i >> 8;
 	}
 	*i = tmp;
-	return ((char *)i);
+	return ((uint32_t *)i);
 }
 
 int		chartoint(unsigned char *t, int len)
