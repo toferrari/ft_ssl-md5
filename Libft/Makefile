@@ -6,7 +6,7 @@
 #    By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/12 18:19:54 by tferrari          #+#    #+#              #
-#    Updated: 2019/03/07 13:42:17 by tferrari         ###   ########.fr        #
+#    Updated: 2019/03/09 16:13:14 by tferrari         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,7 @@ $(NAME): $(OBJS)
 
 $(OBJS_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(OBJS_DIR)
-	@gcc $(FLAG) $(INC) -c $< -o $@
+	@gcc $(FLAG) $(INC) -c $< -o $@ -fsanitize=address
 	@echo "Fichier" $< "recompilé."
 
 clean:
