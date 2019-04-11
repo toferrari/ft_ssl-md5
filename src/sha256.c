@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 10:59:01 by tferrari          #+#    #+#             */
-/*   Updated: 2019/03/13 19:03:55 by tferrari         ###   ########.fr       */
+/*   Updated: 2019/04/10 17:16:23 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ t_hash	create_padding_sha256(t_hash hash)
 	return (hash);
 }
 
-void	sha256(t_hash hash)
+t_hash	sha256(t_hash hash)
 {
 	void		*ptr_save;
 	uint8_t		*hashing;
@@ -131,5 +131,5 @@ void	sha256(t_hash hash)
 	}
 	if (ptr_save)
 		ft_memdel((void **)&ptr_save);
-	write_hash(hash);
+	return (write_hash(hash));
 }

@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/24 16:08:06 by tferrari          #+#    #+#             */
-/*   Updated: 2019/03/13 18:18:32 by tferrari         ###   ########.fr       */
+/*   Updated: 2019/04/10 17:16:00 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ t_hash	create_padding_md5(t_hash hash)
 
 	mod_h = hash.len_octet_h % 64;
 	size_hash = hash.len_octet_h * 8;
-	// printf("mod =% zu\n", mod_h);
 	if (mod_h < 56)
 		hash.data_to_h = ft_realloc_md5(hash.data_to_h,
 							hash.len_octet_h - mod_h + 64, hash.len_octet_h);
@@ -106,11 +105,10 @@ t_hash	create_padding_md5(t_hash hash)
 	hash.len_octet_h += (mod_h < 56) ? (64 - mod_h) : (128 - mod_h);
 	hash.data_to_h = ft_memccat(hash.data_to_h, (void *)&size_hash,
 													(hash.len_octet_h - 8), 4);
-	// printf("len =% zu\n", hash.len_octet_h);
 	return (hash);
 }
 
-void	md5(t_hash hash)
+t_hash	md5(t_hash hash)
 {
 	void		*ptr_save;
 	uint32_t	*hashing;
@@ -126,6 +124,6 @@ void	md5(t_hash hash)
 		hash.len_octet_h -= 64;
 		hashing = hashing + 16;
 	}
-	ft_memdel((void **)&ptr_save);
-	write_hash(hash);
+	hash.data_to_h = ptr_save;
+	return (write_hash(hash));
 }

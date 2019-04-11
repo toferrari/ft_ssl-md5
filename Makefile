@@ -6,7 +6,7 @@
 #    By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/13 16:44:11 by tferrari          #+#    #+#              #
-#    Updated: 2019/03/13 18:44:41 by tferrari         ###   ########.fr        #
+#    Updated: 2019/04/11 17:41:43 by tferrari         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,10 +29,12 @@ INC = -ILibft/include -Iincludes
 
 LFT = -L./Libft -lft
 
+FLAGS = -Wall -Werror -Wextra
+
 all : libft $(NAME)
 
 $(NAME): $(OBJS)
-	@gcc $(LFT) -o $(NAME) $(OBJS) -fsanitize=address
+	@gcc $(LFT) -o $(NAME) $(OBJS) $(FLAGS)
 	@echo "\033[32mexecutable ft_ssl créé\033[0m"
 
 libft:
@@ -40,7 +42,7 @@ libft:
 
 $(OBJS_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(OBJS_DIR)
-	@gcc $(INC) -o $@ -c $< -fsanitize=address -g
+	@gcc $(INC) -o $@ -c $< $(FLAGS)
 	@echo "Fichier" $< "recompilé."
 
 clean:

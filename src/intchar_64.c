@@ -6,7 +6,7 @@
 /*   By: dbischof <dbischof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 15:17:38 by dbischof          #+#    #+#             */
-/*   Updated: 2019/03/08 17:10:47 by tferrari         ###   ########.fr       */
+/*   Updated: 2019/04/10 17:15:47 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	*inttochar_64(uint64_t *i)
 {
-	int j;
-	uint64_t tmp;
+	int			j;
+	uint64_t	tmp;
 
 	j = -1;
 	tmp = 0;

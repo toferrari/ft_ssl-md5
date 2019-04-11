@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 13:50:32 by tferrari          #+#    #+#             */
-/*   Updated: 2019/03/08 17:21:12 by tferrari         ###   ########.fr       */
+/*   Updated: 2019/04/11 18:31:44 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@
 # define R_ROT(X, C) ((X >> C) | (X << (32 - C)))
 # define L_SFT(X, C) (X << C)
 # define R_SFT(X, C) (X >> C)
-# define xstr(s) str(s)
-# define str(s) #s
 
 typedef struct		s_read
 {
@@ -41,12 +39,16 @@ typedef struct		s_option
 	int				option_q;
 	int				option_r;
 	int				option_s;
+	int				error_s;
+	int				option_std;
 	int				close;
 }					t_option;
 
 typedef struct		s_hash
 {
 	int				index_algo;
+	size_t			len;
+	char			*file;
 	void			*data_to_h;
 	size_t			len_octet_h;
 	size_t			len_bytes_h;
@@ -59,22 +61,25 @@ typedef struct		s_hash
 typedef struct		s_algo
 {
 	char			*algo;
-	void			(*lst_hash_fonction)(t_hash);
+	t_hash			(*lst_hash_fonction)(t_hash);
+	size_t			octet;
+	char			*upper;
 }					t_algo;
 
-void				md5(t_hash md5);
-void				sha256(t_hash hash);
-int					error(char *str);
-t_hash				check_option(char *str, t_hash hash, int *index);
-void				write_hash(t_hash hash);
+t_hash				md5(t_hash md5);
+t_hash				sha256(t_hash hash);
+int					error(char *str, int err);
+t_hash				check_option(char *str, t_hash hash, int *index, char **av);
+t_hash				write_hash(t_hash hash);
 void				*inttochar(uint32_t *i);
 void				*inttochar_64(uint64_t *i);
+t_hash				std_in(t_hash hash);
 t_hash				update_h(t_hash hash, size_t len);
 
 static t_algo	g_tab[] = {
-	{"md5", md5},
-	{"sha256", sha256},
-	{NULL, NULL}
+	{"md5", md5, 4, "MD5"},
+	{"sha256", sha256, 8, "SHA256"},
+	{NULL, NULL, 0, NULL}
 };
 
 #endif
