@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 18:38:28 by tferrari          #+#    #+#             */
-/*   Updated: 2019/04/13 14:15:30 by tferrari         ###   ########.fr       */
+/*   Updated: 2019/04/15 14:41:31 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,13 @@ t_hash	split_check_option(t_hash hash)
 	return (hash);
 }
 
+t_hash	split_check_option_p(t_hash hash)
+{
+	hash.option.option_p = 1;
+	hash = std_in(hash);
+	return (hash);
+}
+
 t_hash	check_option(char *str, t_hash hash, int *index, char **av)
 {
 	int i;
@@ -59,10 +66,7 @@ t_hash	check_option(char *str, t_hash hash, int *index, char **av)
 	while (str[i])
 	{
 		if (str[i] == 'p')
-		{
-			hash.option.option_p = 1;
-			hash = std_in(hash);
-		}
+			hash = split_check_option_p(hash);
 		else if (str[i] == 'q')
 			hash.option.option_q = 1;
 		else if (str[i] == 'r')
