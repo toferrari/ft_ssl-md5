@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 16:03:18 by tferrari          #+#    #+#             */
-/*   Updated: 2019/04/11 17:43:18 by tferrari         ###   ########.fr       */
+/*   Updated: 2019/04/13 14:31:47 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,11 @@ t_hash		write_hash(t_hash hash)
 	size_t		i;
 
 	i = -1;
-	if (OPTION_P == 0 && OPTION_Q == 0 && OPTION_R == 0 && OPTION_STD != 1)
+	if (OPTION_P == 0 && OPTION_Q == 0 && OPTION_R == 0 && OPTION_STD != 1 &&
+																OPTION_S == 0)
 		ft_printf("%s (%s) = ", (g_tab[hash.index_algo].upper), hash.file);
+	else if (OPTION_P == 0 && OPTION_Q == 0 && OPTION_R == 0 && OPTION_STD != 1)
+		ft_printf("%s (\"%s\") = ", (g_tab[hash.index_algo].upper), hash.file);
 	while (++i < hash.len)
 		reverse_write(hash, i);
 	if (OPTION_R == 1 && OPTION_Q == 0 && OPTION_P == 0)

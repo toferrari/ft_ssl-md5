@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 13:59:57 by tferrari          #+#    #+#             */
-/*   Updated: 2019/04/11 18:37:07 by tferrari         ###   ########.fr       */
+/*   Updated: 2019/04/13 14:16:42 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int			main(int ac, char **av)
 	{
 		hash = check_option(av[index], hash, &index, av);
 	}
-	if (index - 1 == ac)
+	if (ac == 2)
 		hash = std_in(hash);
 	while (index < ac)
 	{

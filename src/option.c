@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 18:38:28 by tferrari          #+#    #+#             */
-/*   Updated: 2019/04/11 18:37:45 by tferrari         ###   ########.fr       */
+/*   Updated: 2019/04/13 14:15:30 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ t_hash	parse_s(char *str, t_hash hash, int *index, char **av)
 		if (hash.data_to_h == NULL)
 		{
 			(*index) += 2;
+			printf("error -s");
 			hash.option.error_s = 1;
 			hash.option.close = 1;
 			return (hash);
