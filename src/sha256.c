@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 10:59:01 by tferrari          #+#    #+#             */
-/*   Updated: 2019/04/10 17:16:23 by tferrari         ###   ########.fr       */
+/*   Updated: 2019/04/16 15:44:28 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,6 @@ t_hash	sha256(t_hash hash)
 		hash.len_octet_h -= 64;
 		hashing = hashing + 64;
 	}
-	if (ptr_save)
-		ft_memdel((void **)&ptr_save);
+	hash.data_to_h = ptr_save;
 	return (write_hash(hash));
 }
