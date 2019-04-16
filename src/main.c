@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 13:59:57 by tferrari          #+#    #+#             */
-/*   Updated: 2019/04/13 14:16:42 by tferrari         ###   ########.fr       */
+/*   Updated: 2019/04/16 14:51:38 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ t_hash		std_in(t_hash hash)
 	}
 	hash.option.option_std = 1;
 	if (hash.option.option_p == 1)
-		ft_printf("%s", (char *)hash.data_to_h);
+		write(1, hash.data_to_h, hash.len_octet_h);
 	hash = g_tab[hash.index_algo].lst_hash_fonction(hash);
 	return (hash);
 }
