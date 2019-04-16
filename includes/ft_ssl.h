@@ -6,7 +6,7 @@
 /*   By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 13:50:32 by tferrari          #+#    #+#             */
-/*   Updated: 2019/04/11 18:31:44 by tferrari         ###   ########.fr       */
+/*   Updated: 2019/04/16 15:46:48 by tferrari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct		s_algo
 
 t_hash				md5(t_hash md5);
 t_hash				sha256(t_hash hash);
+t_hash				sha224(t_hash hash);
 int					error(char *str, int err);
 t_hash				check_option(char *str, t_hash hash, int *index, char **av);
 t_hash				write_hash(t_hash hash);
@@ -79,6 +80,7 @@ t_hash				update_h(t_hash hash, size_t len);
 static t_algo	g_tab[] = {
 	{"md5", md5, 4, "MD5"},
 	{"sha256", sha256, 8, "SHA256"},
+	{"sha224", sha224, 7, "SHA224"},
 	{NULL, NULL, 0, NULL}
 };
 

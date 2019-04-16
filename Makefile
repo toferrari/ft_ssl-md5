@@ -6,7 +6,7 @@
 #    By: tferrari <tferrari@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/13 16:44:11 by tferrari          #+#    #+#              #
-#    Updated: 2019/04/11 17:41:43 by tferrari         ###   ########.fr        #
+#    Updated: 2019/04/16 15:46:01 by tferrari         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ NAME = ft_ssl
 SRC_DIR = src
 
 SRC_FILE =	main.c md5.c error.c sha256.c option.c write.c intchar.c \
-			update_h.c intchar_64.c
+			update_h.c intchar_64.c sha224.c
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILE))
 
